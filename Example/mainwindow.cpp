@@ -6,6 +6,8 @@
 
 #include <QtConcurrent>
 
+#include "customtablemodel.h"
+
 //耗时操作
 void spendtime()
 {
@@ -18,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     initconnect();
+    initview();
 }
 
 MainWindow::~MainWindow()
@@ -62,6 +65,12 @@ void MainWindow::initconnect()
         auto result = connect(ui->pushButton_6, SIGNAL(clicked()), this, SLOT(qConcurrentSlot()));
         Q_ASSERT(result);
     }
+}
+
+void MainWindow:: initview()
+{
+    mModel = new customTableModel(ui->tableView);
+    ui->tableView->setModel(mModel);
 }
 
 void MainWindow::pushButton_2Slot()
